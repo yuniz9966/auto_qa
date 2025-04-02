@@ -1,3 +1,5 @@
+# Auto QA 5: Автоматизация веб-тестов с использованием Selenide часть 1
+
 import pytest
 import time
 from selenium import webdriver
