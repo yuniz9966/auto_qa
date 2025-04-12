@@ -1,28 +1,19 @@
 import time
-import pytest
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
-
-
-@pytest.fixture
-def web_driver():
-    driver = webdriver.Chrome()
-    driver.get("https://itcareerhub.de/ru")
-    yield driver
-    driver.quit()
+from conftest import driver
 
 
 
-def test_task1(web_driver):
+def test_task1(driver):
     """Тест проверяет отображение элементов на странице ITCareerHub."""
 
     def check_element(by, value, description):
         """Проверяет, отображается ли элемент, и выводит результат."""
         time.sleep(1)
         try:
-            element = web_driver.find_element(by, value)
+            element = driver.find_element(by, value)
             assert element.is_displayed()
             print(f"✅ {description} найден")
         except NoSuchElementException:
@@ -55,15 +46,15 @@ def test_task1(web_driver):
 
 # 3. Кликнуть по иконке с телефонной трубкой
 # 4. Проверить что текст “Если вы не дозвонились, заполните форму на сайте. Мы свяжемся с вами” отображается.
-def test_click_phone_icon(web_driver):
+def test_click_phone_icon(driver):
     time.sleep(2)
-    phone_icon = web_driver.find_element(By.XPATH, "//img[@class='tn-atom__img t-img loaded']")
+    phone_icon = driver.find_element(By.XPATH, "//img[@class='tn-atom__img t-img loaded']")
     phone_icon.click()
 
     time.sleep(1)
 
     # Проверяем наличие текста
-    text_element = web_driver.find_element(
+    text_element = driver.find_element(
         By.XPATH,
         "//div[@field='tn_text_1711363912027']"
     )
